@@ -1,0 +1,321 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "Aug26azuredatafactory"
+		},
+		"AzureSqlDatabase1_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureSqlDatabase1'"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "[concat(parameters('factoryName'), '/AzureSqlDatabase1')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"parameters": {
+					"servername": {
+						"type": "String"
+					},
+					"databasename": {
+						"type": "String"
+					},
+					"username": {
+						"type": "String"
+					},
+					"password": {
+						"type": "String"
+					}
+				},
+				"annotations": [],
+				"type": "AzureSqlDatabase",
+				"typeProperties": {
+					"connectionString": "[parameters('AzureSqlDatabase1_connectionString')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AzureSqlTable1')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureSqlDatabase1",
+					"type": "LinkedServiceReference",
+					"parameters": {
+						"servername": {
+							"value": "@dataset().servername100",
+							"type": "Expression"
+						},
+						"databasename": {
+							"value": "@dataset().dbname100",
+							"type": "Expression"
+						},
+						"username": {
+							"value": "@dataset().Username100",
+							"type": "Expression"
+						},
+						"password": {
+							"value": "@dataset().servername100",
+							"type": "Expression"
+						}
+					}
+				},
+				"parameters": {
+					"servername100": {
+						"type": "String"
+					},
+					"dbname100": {
+						"type": "string"
+					},
+					"Username100": {
+						"type": "string"
+					},
+					"password100": {
+						"type": "string"
+					},
+					"tablename100": {
+						"type": "string"
+					}
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [],
+				"typeProperties": {
+					"schema": "dbo",
+					"table": {
+						"value": "@dataset().tablename100",
+						"type": "Expression"
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureSqlDatabase1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AzureSqlTable2')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureSqlDatabase1",
+					"type": "LinkedServiceReference",
+					"parameters": {
+						"servername": {
+							"value": "@dataset().servername101",
+							"type": "Expression"
+						},
+						"databasename": {
+							"value": "@dataset().dbname101",
+							"type": "Expression"
+						},
+						"username": {
+							"value": "@dataset().username101",
+							"type": "Expression"
+						},
+						"password": {
+							"value": "@dataset().password101",
+							"type": "Expression"
+						}
+					}
+				},
+				"parameters": {
+					"servername101": {
+						"type": "String"
+					},
+					"dbname101": {
+						"type": "string"
+					},
+					"username101": {
+						"type": "string"
+					},
+					"password101": {
+						"type": "string"
+					},
+					"tablename101": {
+						"type": "string"
+					}
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [],
+				"typeProperties": {
+					"schema": "dbo",
+					"table": {
+						"value": "@dataset().tablename101",
+						"type": "Expression"
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureSqlDatabase1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/pipeline1')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Copy data1",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "AzureSqlSource",
+								"sqlReaderQuery": "select * from products",
+								"queryTimeout": "02:00:00",
+								"partitionOption": "None"
+							},
+							"sink": {
+								"type": "AzureSqlSink",
+								"preCopyScript": {
+									"value": "@{pipeline().parameters.tanblename101}",
+									"type": "Expression"
+								},
+								"writeBehavior": "insert",
+								"sqlWriterUseTableLock": false,
+								"disableMetricsCollection": false
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "AzureSqlTable1",
+								"type": "DatasetReference",
+								"parameters": {
+									"servername100": {
+										"value": "@pipeline().parameters.servername100",
+										"type": "Expression"
+									},
+									"dbname100": {
+										"value": "@pipeline().parameters.dbname100",
+										"type": "Expression"
+									},
+									"Username100": {
+										"value": "@pipeline().parameters.username100",
+										"type": "Expression"
+									},
+									"password100": {
+										"value": "@pipeline().parameters.password100",
+										"type": "Expression"
+									},
+									"tablename100": {
+										"value": "@pipeline().parameters.tablename100",
+										"type": "Expression"
+									}
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "AzureSqlTable2",
+								"type": "DatasetReference",
+								"parameters": {
+									"servername101": {
+										"value": "@pipeline().parameters.servername101",
+										"type": "Expression"
+									},
+									"dbname101": {
+										"value": "@pipeline().parameters.dbname101",
+										"type": "Expression"
+									},
+									"username101": {
+										"value": "@pipeline().parameters.username101",
+										"type": "Expression"
+									},
+									"password101": {
+										"value": "@pipeline().parameters.password101",
+										"type": "Expression"
+									},
+									"tablename101": {
+										"value": "@pipeline().parameters.tanblename101",
+										"type": "Expression"
+									}
+								}
+							}
+						]
+					},
+					{
+						"name": "Wait1",
+						"type": "Wait",
+						"dependsOn": [],
+						"userProperties": [],
+						"typeProperties": {
+							"waitTimeInSeconds": 1
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"parameters": {
+					"servername100": {
+						"type": "string"
+					},
+					"dbname100": {
+						"type": "string"
+					},
+					"username100": {
+						"type": "string"
+					},
+					"password100": {
+						"type": "string"
+					},
+					"tablename100": {
+						"type": "string"
+					},
+					"servername101": {
+						"type": "string"
+					},
+					"dbname101": {
+						"type": "string"
+					},
+					"username101": {
+						"type": "string"
+					},
+					"password101": {
+						"type": "string"
+					},
+					"tanblename101": {
+						"type": "string"
+					}
+				},
+				"annotations": [],
+				"lastPublishTime": "2022-08-30T01:49:55Z"
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/AzureSqlTable1')]",
+				"[concat(variables('factoryId'), '/datasets/AzureSqlTable2')]"
+			]
+		}
+	]
+}
