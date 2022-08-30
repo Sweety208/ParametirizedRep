@@ -1,0 +1,138 @@
+{
+	"name": "pipeline1",
+	"properties": {
+		"activities": [
+			{
+				"name": "Copy data1",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AzureSqlSource",
+						"sqlReaderQuery": "select * from products",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"sink": {
+						"type": "AzureSqlSink",
+						"preCopyScript": {
+							"value": "@{pipeline().parameters.tanblename101}",
+							"type": "Expression"
+						},
+						"writeBehavior": "insert",
+						"sqlWriterUseTableLock": false,
+						"disableMetricsCollection": false
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "AzureSqlTable1",
+						"type": "DatasetReference",
+						"parameters": {
+							"servername100": {
+								"value": "@pipeline().parameters.servername100",
+								"type": "Expression"
+							},
+							"dbname100": {
+								"value": "@pipeline().parameters.dbname100",
+								"type": "Expression"
+							},
+							"Username100": {
+								"value": "@pipeline().parameters.username100",
+								"type": "Expression"
+							},
+							"password100": {
+								"value": "@pipeline().parameters.password100",
+								"type": "Expression"
+							},
+							"tablename100": {
+								"value": "@pipeline().parameters.tablename100",
+								"type": "Expression"
+							}
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "AzureSqlTable2",
+						"type": "DatasetReference",
+						"parameters": {
+							"servername101": {
+								"value": "@pipeline().parameters.servername101",
+								"type": "Expression"
+							},
+							"dbname101": {
+								"value": "@pipeline().parameters.dbname101",
+								"type": "Expression"
+							},
+							"username101": {
+								"value": "@pipeline().parameters.username101",
+								"type": "Expression"
+							},
+							"password101": {
+								"value": "@pipeline().parameters.password101",
+								"type": "Expression"
+							},
+							"tablename101": {
+								"value": "@pipeline().parameters.tanblename101",
+								"type": "Expression"
+							}
+						}
+					}
+				]
+			}
+		],
+		"parameters": {
+			"servername100": {
+				"type": "string"
+			},
+			"dbname100": {
+				"type": "string"
+			},
+			"username100": {
+				"type": "string"
+			},
+			"password100": {
+				"type": "string"
+			},
+			"tablename100": {
+				"type": "string"
+			},
+			"servername101": {
+				"type": "string"
+			},
+			"dbname101": {
+				"type": "string"
+			},
+			"username101": {
+				"type": "string"
+			},
+			"password101": {
+				"type": "string"
+			},
+			"tanblename101": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"lastPublishTime": "2022-08-30T01:49:55Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}
