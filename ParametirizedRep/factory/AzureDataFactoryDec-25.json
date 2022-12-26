@@ -1,6 +1,12 @@
 {
 	"name": "AzureDataFactoryDec-25",
 	"properties": {
+		"globalParameters": {
+			"TestingPurpose": {
+				"type": "int",
+				"value": 0
+			}
+		},
 		"globalConfigurations": {
 			"PipelineBillingEnabled": "false"
 		}
