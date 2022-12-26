@@ -1,0 +1,9 @@
+{
+	"name": "AzureDataFactoryDec-25",
+	"properties": {
+		"globalConfigurations": {
+			"PipelineBillingEnabled": "true"
+		}
+	},
+	"location": "centralus"
+}
