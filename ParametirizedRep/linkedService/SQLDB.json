@@ -1,0 +1,10 @@
+{
+	"name": "SQLDB",
+	"properties": {
+		"annotations": [],
+		"type": "AzureKeyVault",
+		"typeProperties": {
+			"baseUrl": "https://dec28keyvault.vault.azure.net/"
+		}
+	}
+}
