@@ -1,0 +1,23 @@
+{
+	"name": "LNK_FTTPServer_SQL",
+	"properties": {
+		"description": "To connect to linked server to Azure SQL",
+		"annotations": [],
+		"type": "AzureSqlDatabase",
+		"typeProperties": {
+			"connectionString": {
+				"type": "AzureKeyVaultSecret",
+				"store": {
+					"referenceName": "AzureKeyVault1",
+					"type": "LinkedServiceReference"
+				},
+				"secretName": "SQL-FTTPserver-connstring",
+				"secretVersion": "9b305dca4844451ea2b0da9c7e03b9af"
+			}
+		},
+		"connectVia": {
+			"referenceName": "AutoResolveIntegrationRuntime",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}
