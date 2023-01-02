@@ -17,6 +17,7 @@
 				"typeProperties": {
 					"source": {
 						"type": "AzureSqlSource",
+						"sqlReaderQuery": "select a.App_id,a.appname, b.foldername  from [dbo].[T_File] a inner join t_file_details b on \na.App_ID=b.App_ID where a.APP_ID=1001",
 						"queryTimeout": "02:00:00",
 						"partitionOption": "None"
 					},
@@ -64,7 +65,7 @@
 									"type": "DatasetReference",
 									"parameters": {
 										"foldername": {
-											"value": "@toLower(item().appname)",
+											"value": "@toLower(item().foldername)",
 											"type": "Expression"
 										}
 									}
@@ -74,6 +75,7 @@
 								],
 								"storeSettings": {
 									"type": "AzureBlobStorageReadSettings",
+									"recursive": true,
 									"modifiedDatetimeStart": "2022-12-31T00:00:00.959Z",
 									"modifiedDatetimeEnd": "2022-12-31T00:00:00.047Z",
 									"enablePartitionDiscovery": false
