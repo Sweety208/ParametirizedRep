@@ -59,7 +59,14 @@
 						{
 							"name": "If Condition1",
 							"type": "IfCondition",
-							"dependsOn": [],
+							"dependsOn": [
+								{
+									"activity": "Set variable1",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
 							"userProperties": [],
 							"typeProperties": {
 								"expression": {
@@ -85,7 +92,7 @@
 												"type": "DatasetReference",
 												"parameters": {
 													"foldername": {
-														"value": "@concat('IVAPP','IVAPP\\')",
+														"value": "@variables('foldername2')",
 														"type": "Expression"
 													}
 												}
@@ -104,6 +111,19 @@
 									}
 								]
 							}
+						},
+						{
+							"name": "Set variable1",
+							"type": "SetVariable",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "foldername2",
+								"value": {
+									"value": "@concat(pipeline().parameters.foldernamep2,'/',item().name)",
+									"type": "Expression"
+								}
+							}
 						}
 					]
 				}
@@ -112,6 +132,11 @@
 		"parameters": {
 			"foldernamep2": {
 				"type": "string"
+			}
+		},
+		"variables": {
+			"foldername2": {
+				"type": "String"
 			}
 		},
 		"annotations": []
