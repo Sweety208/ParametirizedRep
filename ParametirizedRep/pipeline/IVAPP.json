@@ -90,7 +90,7 @@
 							"type": "IfCondition",
 							"dependsOn": [
 								{
-									"activity": "Get Metadata1",
+									"activity": "Set variable3",
 									"dependencyConditions": [
 										"Succeeded"
 									]
