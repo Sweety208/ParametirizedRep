@@ -116,11 +116,11 @@
 											"waitOnCompletion": true,
 											"parameters": {
 												"Appname": {
-													"value": "@variables('AppName')",
+													"value": "@toLower(variables('AppName'))",
 													"type": "Expression"
 												},
 												"FolderName": {
-													"value": "@variables('FolderName')",
+													"value": "@toLower(variables('FolderName'))",
 													"type": "Expression"
 												}
 											}
