@@ -104,19 +104,45 @@
 								},
 								"ifTrueActivities": [
 									{
-										"name": "Set variable1",
-										"type": "SetVariable",
+										"name": "Execute Pipeline1",
+										"type": "ExecutePipeline",
 										"dependsOn": [],
 										"userProperties": [],
 										"typeProperties": {
-											"variableName": "foldername",
-											"value": {
-												"value": "@activity('Get Metadata1').output.itemName",
-												"type": "Expression"
+											"pipeline": {
+												"referenceName": "IVAPPsubfiles",
+												"type": "PipelineReference"
+											},
+											"waitOnCompletion": true,
+											"parameters": {
+												"foldernamep2": {
+													"value": "@variables('foldername100')",
+													"type": "Expression"
+												}
 											}
 										}
 									}
 								]
+							}
+						},
+						{
+							"name": "Set variable2",
+							"type": "SetVariable",
+							"dependsOn": [
+								{
+									"activity": "Get Metadata1",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "foldername100",
+								"value": {
+									"value": "@item().foldername",
+									"type": "Expression"
+								}
 							}
 						}
 					]
@@ -124,7 +150,7 @@
 			}
 		],
 		"variables": {
-			"foldername": {
+			"foldername100": {
 				"type": "String"
 			}
 		},
