@@ -20,7 +20,7 @@
 						"type": "DatasetReference",
 						"parameters": {
 							"foldername1": {
-								"value": "@pipeline().parameters.foldernamep2",
+								"value": "@pipeline().parameters.Appname",
 								"type": "Expression"
 							}
 						}
@@ -71,7 +71,7 @@
 							"userProperties": [],
 							"typeProperties": {
 								"expression": {
-									"value": "@endswith(item().name,'voice')",
+									"value": "@endswith(item().name,pipeline().parameters.FolderName)",
 									"type": "Expression"
 								},
 								"ifTrueActivities": [
@@ -148,7 +148,7 @@
 							"typeProperties": {
 								"variableName": "foldername2",
 								"value": {
-									"value": "@concat(pipeline().parameters.foldernamep2,'/',item().name)",
+									"value": "@concat(pipeline().parameters.Appname,'/',item().name)",
 									"type": "Expression"
 								}
 							}
