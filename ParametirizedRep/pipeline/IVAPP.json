@@ -65,7 +65,7 @@
 									"type": "DatasetReference",
 									"parameters": {
 										"foldername1": {
-											"value": "@toLower(item().foldername)",
+											"value": "@toLower(item().appname)",
 											"type": "Expression"
 										}
 									}
@@ -140,7 +140,7 @@
 							"typeProperties": {
 								"variableName": "foldername100",
 								"value": {
-									"value": "@item().foldername",
+									"value": "@item().appname",
 									"type": "Expression"
 								}
 							}
