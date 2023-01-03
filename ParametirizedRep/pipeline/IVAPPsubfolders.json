@@ -1,5 +1,5 @@
 {
-	"name": "IVAPPsubfiles",
+	"name": "IVAPPsubfolders",
 	"properties": {
 		"activities": [
 			{
@@ -19,7 +19,7 @@
 						"referenceName": "DelimitedText1",
 						"type": "DatasetReference",
 						"parameters": {
-							"foldername": {
+							"foldername1": {
 								"value": "@pipeline().parameters.foldernamep2",
 								"type": "Expression"
 							}
@@ -30,6 +30,7 @@
 					],
 					"storeSettings": {
 						"type": "AzureBlobStorageReadSettings",
+						"recursive": true,
 						"enablePartitionDiscovery": false
 					},
 					"formatSettings": {
@@ -91,7 +92,7 @@
 												"referenceName": "DelimitedText1",
 												"type": "DatasetReference",
 												"parameters": {
-													"foldername": {
+													"foldername1": {
 														"value": "@variables('foldername2')",
 														"type": "Expression"
 													}
@@ -102,10 +103,37 @@
 											],
 											"storeSettings": {
 												"type": "AzureBlobStorageReadSettings",
+												"recursive": true,
 												"enablePartitionDiscovery": false
 											},
 											"formatSettings": {
 												"type": "DelimitedTextReadSettings"
+											}
+										}
+									},
+									{
+										"name": "Execute Pipeline1",
+										"type": "ExecutePipeline",
+										"dependsOn": [
+											{
+												"activity": "Get Metadata2",
+												"dependencyConditions": [
+													"Succeeded"
+												]
+											}
+										],
+										"userProperties": [],
+										"typeProperties": {
+											"pipeline": {
+												"referenceName": "IVAPPFiles",
+												"type": "PipelineReference"
+											},
+											"waitOnCompletion": true,
+											"parameters": {
+												"Folder_p1": {
+													"value": "@variables('foldername2')",
+													"type": "Expression"
+												}
 											}
 										}
 									}

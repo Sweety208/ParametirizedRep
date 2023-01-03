@@ -64,7 +64,7 @@
 									"referenceName": "DelimitedText1",
 									"type": "DatasetReference",
 									"parameters": {
-										"foldername": {
+										"foldername1": {
 											"value": "@toLower(item().foldername)",
 											"type": "Expression"
 										}
@@ -110,7 +110,7 @@
 										"userProperties": [],
 										"typeProperties": {
 											"pipeline": {
-												"referenceName": "IVAPPsubfiles",
+												"referenceName": "IVAPPsubfolders",
 												"type": "PipelineReference"
 											},
 											"waitOnCompletion": true,

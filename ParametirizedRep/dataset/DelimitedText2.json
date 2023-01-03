@@ -1,12 +1,15 @@
 {
-	"name": "DelimitedText1",
+	"name": "DelimitedText2",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "LS_BLOB_Name",
 			"type": "LinkedServiceReference"
 		},
 		"parameters": {
-			"foldername1": {
+			"folderp1": {
+				"type": "string"
+			},
+			"folderp2": {
 				"type": "string"
 			}
 		},
@@ -15,8 +18,12 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobStorageLocation",
+				"fileName": {
+					"value": "@dataset().folderp2",
+					"type": "Expression"
+				},
 				"folderPath": {
-					"value": "@dataset().foldername1",
+					"value": "@dataset().folderp1",
 					"type": "Expression"
 				},
 				"container": "ivapp"
