@@ -116,7 +116,7 @@
 											"waitOnCompletion": true,
 											"parameters": {
 												"foldernamep2": {
-													"value": "@variables('foldername100')",
+													"value": "@toLower(variables('foldername100'))",
 													"type": "Expression"
 												}
 											}
