@@ -115,8 +115,12 @@
 											},
 											"waitOnCompletion": true,
 											"parameters": {
-												"foldernamep2": {
-													"value": "@toLower(variables('foldername100'))",
+												"Appname": {
+													"value": "@variables('AppName')",
+													"type": "Expression"
+												},
+												"FolderName": {
+													"value": "@variables('FolderName')",
 													"type": "Expression"
 												}
 											}
@@ -138,9 +142,29 @@
 							],
 							"userProperties": [],
 							"typeProperties": {
-								"variableName": "foldername100",
+								"variableName": "AppName",
 								"value": {
 									"value": "@item().appname",
+									"type": "Expression"
+								}
+							}
+						},
+						{
+							"name": "Set variable3",
+							"type": "SetVariable",
+							"dependsOn": [
+								{
+									"activity": "Set variable2",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "FolderName",
+								"value": {
+									"value": "@item().foldername",
 									"type": "Expression"
 								}
 							}
@@ -150,7 +174,10 @@
 			}
 		],
 		"variables": {
-			"foldername100": {
+			"AppName": {
+				"type": "String"
+			},
+			"FolderName": {
 				"type": "String"
 			}
 		},

@@ -158,7 +158,10 @@
 			}
 		],
 		"parameters": {
-			"foldernamep2": {
+			"Appname": {
+				"type": "string"
+			},
+			"FolderName": {
 				"type": "string"
 			}
 		},
