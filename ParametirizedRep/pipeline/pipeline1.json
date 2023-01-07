@@ -87,7 +87,7 @@
 					},
 					"method": "POST",
 					"body": {
-						"value": "{\n\"Title\":\"Copy SSP files to NSOP files\",\n\"Message\":\"SUCCESS\",\n\"Color\":\"Green\",\n\"DataFactoryName\":\"@{pipeline().DataFactory}\",\n\"PipeLineName\":\"@{pipeline().Pipeline}\",\n\"RunId\":\"@{pipeline().RunId}\"\",\n\"Time\":\"@{utcNow()}\"\n}",
+						"value": "{\n\"Title\":\"Copy SSP files to NSOP files\",\n\"Message\":\"SUCCESS\",\n\"Color\":\"Green\",\n\"DataFactoryName\":\"@{pipeline().DataFactory}\",\n\"PipeLineName\":\"@{pipeline().Pipeline}\",\n\"RunId\":\"@{pipeline().RunId}\",\n\"Time\":\"@{utcNow()}\"\n}",
 						"type": "Expression"
 					}
 				}
