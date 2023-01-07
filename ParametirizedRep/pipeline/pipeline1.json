@@ -101,6 +101,12 @@
 						"dependencyConditions": [
 							"Failed"
 						]
+					},
+					{
+						"activity": "Execute Pipeline1",
+						"dependencyConditions": [
+							"Succeeded"
+						]
 					}
 				],
 				"policy": {
@@ -119,9 +125,18 @@
 					},
 					"method": "POST",
 					"body": {
-						"value": "{\n\"Title\":\"Copy SSP files to NSOP files\",\n\"Message\":\"@{activity('Copy data1').error.message}\"\n\"Color\":\"REDactivity('Copy data1').output\",\n\"DataFactoryName\":\"@{pipeline().DataFactory}\",\n\"PipeLineName\":\"@{pipeline().Pipeline}\",\n\"RunId\":\"@{pipeline().RunId}\",\n\"Time\":\"@{utcNow()}\"\n}",
+						"value": "{\n\"Title\":\"Copy SSP files to NSOP files\",\n\"Message\":\"@{activity('Copy data1').error.message}\"\n\"Color\":\"RED\",\n\"DataFactoryName\":\"@{pipeline().DataFactory}\",\n\"PipeLineName\":\"@{pipeline().Pipeline}\",\n\"RunId\":\"@{pipeline().RunId}\",\n\"Time\":\"@{utcNow()}\"\n}",
 						"type": "Expression"
 					}
+				}
+			},
+			{
+				"name": "Execute Pipeline1",
+				"type": "ExecutePipeline",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"waitOnCompletion": true
 				}
 			}
 		],
