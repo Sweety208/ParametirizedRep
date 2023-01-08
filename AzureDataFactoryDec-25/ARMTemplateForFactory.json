@@ -26,6 +26,10 @@
 		"SQLDB_properties_typeProperties_baseUrl": {
 			"type": "string",
 			"defaultValue": "https://dec28keyvault.vault.azure.net/"
+		},
+		"trigger2_properties_typeProperties_scope": {
+			"type": "string",
+			"defaultValue": "/subscriptions/4422f78a-ffa3-4eb6-ba56-830e595fa0cb/resourceGroups/group1/providers/Microsoft.Storage/storageAccounts/blobstoragedec26"
 		}
 	},
 	"variables": {
@@ -1082,12 +1086,12 @@
 			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/trigger1')]",
+			"name": "[concat(parameters('factoryName'), '/trigger2')]",
 			"type": "Microsoft.DataFactory/factories/triggers",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"annotations": [],
-				"runtimeState": "Started",
+				"runtimeState": "Stopped",
 				"pipelines": [
 					{
 						"pipelineReference": {
@@ -1097,14 +1101,15 @@
 						"parameters": {}
 					}
 				],
-				"type": "ScheduleTrigger",
+				"type": "BlobEventsTrigger",
 				"typeProperties": {
-					"recurrence": {
-						"frequency": "Minute",
-						"interval": 15,
-						"startTime": "2023-01-07T18:51:00Z",
-						"timeZone": "UTC"
-					}
+					"blobPathBeginsWith": "/ssp/blobs/voice",
+					"blobPathEndsWith": "voice",
+					"ignoreEmptyBlobs": true,
+					"scope": "[parameters('trigger2_properties_typeProperties_scope')]",
+					"events": [
+						"Microsoft.Storage.BlobCreated"
+					]
 				}
 			},
 			"dependsOn": [
